@@ -23,6 +23,7 @@
 
       <div v-if="user">
 
+        <v-btn round color="primary"  @click="onProfile">Profile</v-btn>
         <v-btn round color="primary"  @click="onLogout">Logout</v-btn>
 
       </div>
@@ -56,7 +57,7 @@
       return {
         drawer: false,
         navItems: [
-          { icon: 'shopping_basket', title: 'shop', link: '/products' },
+          { icon: 'shopping_basket', title: 'shop', link: '/' },
           { icon: 'shopping_cart', title: 'cart', link: '/cart' },
           { icon: 'shopping_basket', title: 'create', link: '/products/create' },
         ],

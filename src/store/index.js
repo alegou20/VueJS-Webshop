@@ -58,18 +58,30 @@ export default new Vuex.Store(
           });
         },
         CHECK_AUTH(context) {
-          if (localStorage.token) {
-            ApiService.setHeader();
-            const token = jwt_decode(localStorage.token)
-            const loggedUser = {
-              id: token.id,
-              email: token.email
+          if (localStorage.token ) {
+            const tokenExp = jwt_decode(localStorage.token)
+            if(tokenExp.exp < Date.now() / 1000){
+              alert('token has expired')
+              context.commit("PURGE_AUTH", null);
+              //TO:DO go to login page
             }
+            else{
+              ApiService.setHeader();
+              const token = jwt_decode(localStorage.token)
+              const loggedUser = {
+                id: token.id,
+                email: token.email
+              }
 
-            context.commit("SET_AUTH", loggedUser);
+              context.commit("SET_AUTH", loggedUser);
+            }
           } else {
             context.commit("PURGE_AUTH");
+            //TO:DO go to login page
           }
+        },
+        ValidJwtCode(){
+
         },
         logout() {
           alert('lohout method')
@@ -81,7 +93,7 @@ export default new Vuex.Store(
         },
 
         getProduct(context, payload) {
-          return ApiService.get(`${'item'}/${payload.id}`);
+          return ProductService.getById(payload.id);
         },
 
         deleteProduct(context, payload) {
@@ -114,15 +126,7 @@ export default new Vuex.Store(
             console.error(e)
           })
         },
-        ValidJwtCode(){
-          const token = jwt_decode(localStorage.token)
-          if(token.exp < Date.now() / 1000){
-            alert('token is expired best')
-            return true
-          }
 
-          return false
-        },
         UPDATE_USER(context, payload) {
           const { email, username, password, image, bio } = payload;
           const user = {

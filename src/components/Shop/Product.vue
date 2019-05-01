@@ -13,7 +13,7 @@
                     </div>
                 </v-card-title>
                 <v-card-actions>
-                    <v-btn :to="{name: 'Edit', params: {id: product.id}}" color="primary">Edit</v-btn>
+                    <v-btn :to="{name: 'edit', params: {id: product.id}}" color="primary">Edit</v-btn>
                     <v-btn @click="deleteProduct()" color="error">Delete</v-btn>
                 </v-card-actions>
             </v-card>

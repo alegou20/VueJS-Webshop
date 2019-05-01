@@ -13,8 +13,8 @@
                     </div>
                 </v-card-title>
                 <v-card-actions>
-                    <v-btn :to="{name:'Product',params:{id: product.id }}" color="info">View</v-btn>
-                    <!--<v-btn :to="{name:'cart',params:{id: product.id }}" color="success">Add to cart</v-btn>-->
+                    <v-btn :to="{name:'product',params:{id: product.id }}" color="info">View</v-btn>
+                    <v-btn :to="{name:'cart',params:{id: product.id }}" color="success">Add to cart</v-btn>
                 </v-card-actions>
             </v-card>
         </v-flex>

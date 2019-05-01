@@ -52,6 +52,9 @@ export default ApiService;
 export const ProductService = {
   get() {
     return ApiService.get("item");
+  },
+  getById(id) {
+    return ApiService.get("item", `${id}`);
   }
 };
 

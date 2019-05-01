@@ -4,6 +4,7 @@ import Create from '@/components/Shop/Create.vue'
 import Edit from '@/components/Shop/Edit.vue'
 import Product from '@/components/Shop/Product.vue'
 import Products from '@/components/Shop/Products.vue'
+import Cart from '@/components/Shop/Cart.vue'
 import Chat from '@/components/chat.vue'
 import Login from '@/components/Account/Login.vue'
 import Profile from '@/components/Account/Profile.vue'
@@ -31,12 +32,12 @@ export default new Router({
     {
       path: '/product',
       name: 'product',
-      component: Product
+      component: Product,
     },
     {
-      path: '/products',
+      path: '/',
       name: 'products',
-      component: Products
+      component: Products,
     },
     {
       path: '/chat',
@@ -44,9 +45,14 @@ export default new Router({
       component: Chat
     },
     {
-      path: '/',
+      path: '/login',
       name: 'login',
-      component: Login
+      component: Login,
+    },
+    {
+      path: '/cart',
+      name: 'cart',
+      component: Cart,
     },
     {
       path: '/productform',
