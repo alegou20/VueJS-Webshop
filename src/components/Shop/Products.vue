@@ -14,8 +14,13 @@
                 </v-card-title>
                 <v-card-actions>
                     <v-btn :to="{name:'product',params:{id: product.id }}" color="info">View</v-btn>
-                    <v-btn :to="{name:'cart',params:{id: product.id }}" color="success">Add to cart</v-btn>
+
+                    <div class="text-xs-center">
+                        <v-btn color="orange"  @click="addToCart(product.id)">Add to cart</v-btn>
+                    </div>
+
                 </v-card-actions>
+
             </v-card>
         </v-flex>
     </v-layout>
@@ -35,6 +40,9 @@
                     this.products = res.data;
                 }).catch(err => console.log(err));
         },
+        methods: {
+
+        }
     };
 </script>
 

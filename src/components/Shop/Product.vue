@@ -44,7 +44,13 @@
             },
             deleteProduct() {
                 const { id } = this.$route.params;
-                this.$store.dispatch('deleteProduct', {id})
+                this.$store.dispatch('deleteProduct', {id}).then((res) => {
+                    if(res.data != null){
+                        this.$router.push({
+                            name: 'products'
+                        });
+                    }
+                });
             },
         },
 

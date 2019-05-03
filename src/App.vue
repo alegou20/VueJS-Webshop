@@ -64,7 +64,7 @@
         items: [
           { icon: 'lock_open', title: 'Sign in', link: '/login' },
           { icon: 'face', title: 'Sign up', link: '/register' },
-          { icon: 'person', title: 'Profile', link: '/profile' },
+
         ]
       };
     },
@@ -75,12 +75,14 @@
     },
     methods: {
       onLogout () {
-        this.$store.dispatch('logout').then(res => {
-         console.log(res)
+        this.$store.dispatch('logout').then(() =>  {
           this.$router.push({
             name: 'login'
           });
         });
+      },
+      onProfile () {
+
       }
     }
   };

@@ -16,12 +16,6 @@ const ApiService = {
     ] = `Bearer ${localStorage.token}`;
   },
 
-  query(resource, params) {
-    return Vue.axios.get(resource, params).catch(error => {
-      throw new Error(`[RWV] ApiService ${error}`);
-    });
-  },
-
   get(resource, slug = "") {
     return Vue.axios.get(`${resource}/${slug}`).catch(error => {
       throw new Error(`[RWV] ApiService ${error}`);

@@ -11,7 +11,6 @@ Vue.use(Vuex)
 export default new Vuex.Store(
     {
       state: {
-        errors: null,
         user: {},
         isAuthenticated: !!localStorage.token
       },
@@ -27,7 +26,6 @@ export default new Vuex.Store(
               })
         },
         DETAILMETHOD(context, payload) {
-          console.log(payload.data)
           localStorage.token = payload.data
 
           const token = jwt_decode(payload.data)
@@ -58,14 +56,14 @@ export default new Vuex.Store(
           });
         },
         CHECK_AUTH(context) {
-          if (localStorage.token ) {
+
             const tokenExp = jwt_decode(localStorage.token)
+
             if(tokenExp.exp < Date.now() / 1000){
               alert('token has expired')
               context.commit("PURGE_AUTH", null);
-              //TO:DO go to login page
+              return false
             }
-            else{
               ApiService.setHeader();
               const token = jwt_decode(localStorage.token)
               const loggedUser = {
@@ -74,17 +72,10 @@ export default new Vuex.Store(
               }
 
               context.commit("SET_AUTH", loggedUser);
-            }
-          } else {
-            context.commit("PURGE_AUTH");
-            //TO:DO go to login page
-          }
-        },
-        ValidJwtCode(){
-
+              return true
         },
         logout() {
-          alert('lohout method')
+
           this.commit("PURGE_AUTH", null)
           delete localStorage.token
         },
@@ -93,11 +84,11 @@ export default new Vuex.Store(
         },
 
         getProduct(context, payload) {
-          return ProductService.getById(payload.id);
+          return ApiService.get('item', payload.id);
         },
 
         deleteProduct(context, payload) {
-          ApiService.delete(`${'item'}/${payload.id}`);
+          return ApiService.delete(`${'item'}/${payload.id}`);
         },
 
         createProduct (context, payload) {
@@ -114,8 +105,7 @@ export default new Vuex.Store(
         },
 
         updateProduct (context, payload) {
-
-          ApiService.put('item', {
+          return ApiService.put('item', {
             title: payload.title,
             description: payload.description,
             price: payload.price,
@@ -127,28 +117,9 @@ export default new Vuex.Store(
           })
         },
 
-        UPDATE_USER(context, payload) {
-          const { email, username, password, image, bio } = payload;
-          const user = {
-            email,
-            username,
-            bio,
-            image
-          };
-          if (password) {
-            user.password = password;
-          }
-
-          return ApiService.put("user", user).then(({ data }) => {
-            context.commit("SET_AUTH", data.user);
-            return data;
-          });
-        }
       },
       mutations: {
-        SET_ERROR(state, error) {
-          state.errors = error;
-        },
+
         SET_AUTH(state, user) {
           state.isAuthenticated = true;
           state.user = user;

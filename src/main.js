@@ -11,10 +11,10 @@ Vue.config.productionTip = false;
 
 ApiService.init();
 
-// Ensure we checked auth before each page load.
-router.beforeEach((to, from, next) =>
-    store.dispatch("CHECK_AUTH").then(next)
-);
+// // Ensure we checked auth before each page load.
+// router.beforeEach((to, from, next) =>
+//     store.dispatch("CHECK_AUTH").then(next)
+// );
 
 new Vue({
   router,

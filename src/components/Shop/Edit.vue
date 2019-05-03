@@ -32,10 +32,12 @@
             },
             submit() {
                 this.$store.dispatch('updateProduct', {title: this.product.title, description: this.product.description,
-                    price: this.product.price, quantity: this.product.quantity, image: this.product.image}).then(() => {
-                    this.$router.push({
-                        name: 'Products'
-                    });
+                    price: this.product.price, quantity: this.product.quantity, image: this.product.image}).then((res) => {
+                        if(res.data != null){
+                            this.$router.push({
+                                name: 'products'
+                            });
+                        }
                 });
             },
         },
