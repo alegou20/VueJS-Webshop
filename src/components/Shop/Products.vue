@@ -12,13 +12,10 @@
                         <small>{{product.quantity}} in stock</small>
                     </div>
                 </v-card-title>
+
                 <v-card-actions>
                     <v-btn :to="{name:'product',params:{id: product.id }}" color="info">View</v-btn>
-
-                    <div class="text-xs-center">
-                        <v-btn color="orange"  @click="addToCart(product.id)">Add to cart</v-btn>
-                    </div>
-
+                    <v-btn color="orange" @click="addToCart(product.id)">Add to cart</v-btn>
                 </v-card-actions>
 
             </v-card>
@@ -41,8 +38,10 @@
                 }).catch(err => console.log(err));
         },
         methods: {
-
-        }
+            addToCart(id) {
+                this.$store.commit('setCartItem', id);
+            },
+        },
     };
 </script>
 

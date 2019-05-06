@@ -12,7 +12,9 @@ export default new Vuex.Store(
     {
       state: {
         user: {},
-        isAuthenticated: !!localStorage.token
+        loader: false,
+        isAuthenticated: !!localStorage.token,
+        cart: []
       },
 
       actions: {
@@ -84,7 +86,12 @@ export default new Vuex.Store(
         },
 
         getProduct(context, payload) {
+
           return ApiService.get('item', payload.id);
+        },
+
+        getProductFilter(context, payload) {
+          return ApiService.get('item', payload);
         },
 
         deleteProduct(context, payload) {
@@ -119,7 +126,12 @@ export default new Vuex.Store(
 
       },
       mutations: {
-
+        LOADER(state, payload){
+          state.loader=payload;
+        },
+        setCartItem(state, cart) {
+          state.cart.push(cart)
+        },
         SET_AUTH(state, user) {
           state.isAuthenticated = true;
           state.user = user;
@@ -138,7 +150,10 @@ export default new Vuex.Store(
         },
         isAuthenticated(state) {
           return state.isAuthenticated;
-        }
+        },
+        cart(state){
+          return state.cart
+        },
       },
     }
 )

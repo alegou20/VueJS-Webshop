@@ -49,6 +49,6 @@ export const ProductService = {
   },
   getById(id) {
     return ApiService.get("item", `${id}`);
-  }
+  },
 };
 

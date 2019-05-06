@@ -12,43 +12,60 @@
 
                         <v-text-field name="email" label="Mail" id="email" v-model="email" type="email" required></v-text-field>
                         <v-text-field name="password" label="Password" id="password" v-model="password" type="password" required></v-text-field>
+                        <div v-if="auth">
+                            <v-text-field name="authCode" label="Verification code" id="authCode" v-model="authCode" type="authCode" required></v-text-field>
 
-                        <!--<loader></loader>-->
-                        <div class="text-xs-center">
-                            <v-btn round color="primary"  @click="onSignin">Sign in</v-btn>
                         </div>
 
+                        <div class="text-xs-center">
 
-                    <div v-if="auth">
+                            <div v-if="sign">
+                            <v-btn round color="primary"  @click="onSignin">Sign in</v-btn>
 
-                                <v-text-field name="authCode" label="Verification code" id="authCode" v-model="authCode" type="authCode" required></v-text-field>
+                            </div>
+
+                            <div v-if="auth">
+
                                 <v-btn round color="primary"  @click="validateCode">Confirm</v-btn>
 
-                    </div>
+                            </div>
+                            <Loader></Loader>
+                        </div>
+
                     </v-form>
                         </v-card-text>
+
+
 
             </v-card>
         </v-layout>
     </v-container>
 </template>
-
 <script>
+    import Loader from '../Loader'
+
     export default {
+        components: {
+            Loader
+        },
         data() {
             return {
                 email: null,
                 password: null,
                 auth: '',
                 authCode: '',
+                sign: true
             };
         },
         methods: {
             onSignin() {
+                this.$store.commit('LOADER',true);
                 this.$store
                     .dispatch("LOGIN", {email: this.email, password: this.password})
                     .then(res => {
                         this.auth = res.data;
+                        this.sign = false;
+                        this.$store.commit('LOADER',false);
                     });
             },
             validateCode () {
@@ -64,3 +81,7 @@
         },
     };
 </script>
+
+<style>
+
+</style>
